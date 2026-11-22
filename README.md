@@ -312,8 +312,3 @@ Jika koneksi masih lambat, cek kualitas sinyal dengan `iw dev wlan0 link`.
 | Perintah yang ditempel menyatu jadi satu baris | Jalankan satu per satu |
 
 ---
-
-## Catatan keamanan
-
-Jangan menempelkan auth key, token, atau kata sandi ke repositori atau chat publik.
-Jika sudah terlanjur, cabut dan buat yang baru.
