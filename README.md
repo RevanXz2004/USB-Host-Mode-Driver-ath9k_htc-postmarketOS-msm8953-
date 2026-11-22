@@ -258,3 +258,54 @@ Nama interface bisa berbeda (`wlan1`, `wlan2`, dan seterusnya).
 ## Dokumentasi Hardware
 
 ![Hardware Modification](hardware_mod.jpg)
+
+## 7. Mematikan hemat daya Wi-Fi
+
+Kernel dengan CONFIG_CFG80211_DEFAULT_PS=y menyalakan power save Wi-Fi secara default.
+Akibatnya koneksi (misalnya SSH) bisa terasa lambat atau putus-putus.
+
+Cek nama interface dan status power save:
+
+```sh
+iw dev
+iw dev wlan0 get power_save
+```
+Contoh: wlan0 adalah Wi-Fi internal (phy#0) dan wlan1 adalah dongle TL-WN722N (phy#1).
+
+Matikan (langsung berlaku, hilang saat reboot):
+
+```sh
+sudo iw dev wlan0 set power_save off
+iw dev wlan0 get power_save
+```
+Hasil yang diharapkan: Power save: off.
+
+### Permanen (OpenRC)
+
+```sh
+sudo tee /etc/local.d/wifi-ps.start <<'EOF'
+#!/bin/sh
+sleep 10
+iw dev wlan0 set power_save off
+iw dev wlan1 set power_save off
+EOF
+sudo chmod +x /etc/local.d/wifi-ps.start
+sudo rc-update add local default
+```
+*sleep 10* memberi waktu agar interface sudah muncul. Sesuaikan nama wlan0/wlan1 dengan
+hasil *iw dev*. Skrip ini bisa berjalan bersamaan dengan *usbhost.start* dari bagian 2.
+
+### Permanen (NetworkManager)
+
+NetworkManager dapat menimpa setelan manual saat reconnect, jadi atur lewat konfigurasinya:
+
+```sh
+sudo tee /etc/NetworkManager/conf.d/wifi-powersave.conf <<'EOF'
+[connection]
+wifi.powersave = 2
+EOF
+sudo rc-service networkmanager restart
+```
+
+Jika koneksi masih lambat, cek kualitas sinyal dengan `iw dev wlan0 link`.
+
