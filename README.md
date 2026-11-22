@@ -254,9 +254,3 @@ Nama interface bisa berbeda (`wlan1`, `wlan2`, dan seterusnya).
 | `ls /sys/kernel/debug/usb/` permission denied | Pakai `sudo` |
 | Perintah yang ditempel menyatu jadi satu baris | Jalankan satu per satu |
 
----
-
-## Catatan keamanan
-
-Jangan menempelkan auth key, token, atau kata sandi ke repositori atau chat publik.
-Jika sudah terlanjur, cabut dan buat yang baru.
