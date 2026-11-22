@@ -254,3 +254,7 @@ Nama interface bisa berbeda (`wlan1`, `wlan2`, dan seterusnya).
 | `ls /sys/kernel/debug/usb/` permission denied | Pakai `sudo` |
 | Perintah yang ditempel menyatu jadi satu baris | Jalankan satu per satu |
 
+
+## Dokumentasi Hardware
+
+![Hardware Modification](hardware_mod.jpg)
